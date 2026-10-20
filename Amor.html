@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Yose ❤️ | 20 de Octubre</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2b102f, #0f0714);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .tarjeta {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 40px 30px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      max-width: 440px;
+      width: 100%;
+      animation: aparecer 0.8s ease-out;
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .icono {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      display: inline-block;
+      animation: latido 2s infinite;
+    }
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      color: #ffb3c6;
+    }
+    p {
+      font-size: 1rem;
+      color: #e2d9e8;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    .contador {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .bloque-tiempo {
+      background: rgba(255, 77, 121, 0.15);
+      border: 1px solid rgba(255, 77, 121, 0.35);
+      padding: 14px 10px;
+      border-radius: 14px;
+      min-width: 75px;
+    }
+    .numero {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff4d79;
+      display: block;
+    }
+    .etiqueta {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #d1c4db;
+    }
+    .nota-pie {
+      font-size: 0.85rem;
+      color: #9e8fb2;
+      margin-bottom: 0;
+    }
+    .boton-regalo {
+      display: none;
+      background: linear-gradient(135deg, #ff4d79, #ff758f);
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(255, 77, 121, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
+    }
+    .boton-regalo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255, 77, 121, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tarjeta">
+    <div id="icono-estado" class="icono">🔒💐</div>
+    <h1 id="titulo">¡Alto ahí, cumpleañera!</h1>
+    <p id="mensaje">
+      Sé que da curiosidad, Yose, pero este detalle está programado para abrirse exactamente a la medianoche del <strong>20 de octubre</strong> en Venezuela.
+    </p>
+
+    <div id="contenedor-reloj" class="contador">
+      <div class="bloque-tiempo">
+        <span id="horas" class="numero">00</span>
+        <span class="etiqueta">Horas</span>
+      </div>
+      <div class="bloque-tiempo">
+        <span id="minutos" class="numero">00</span>
+        <span class="etiqueta">Min</span>
+      </div>
+      <div class="bloque-tiempo">
+        <span id="segundos" class="numero">00</span>
+        <span class="etiqueta">Seg</span>
+      </div>
+    </div>
+
+    <a id="btn-sorpresa" href="#" class="boton-regalo">🌷 Ver mis flores y mi carta 🌷</a>
+    
+    <p id="nota-inferior" class="nota-pie">Con mucho cariño desde Nicaragua ❤️ — José</p>
+  </div>
+
+  <script>
+    // Medianoche del 20 de octubre de 2026 en hora de Venezuela (UTC-4)
+    const fechaObjetivo = new Date("2026-10-20T00:00:00-04:00").getTime();
+
+    // Tu link de BouquetNote oculto en Base64 para que no se vea antes de tiempo
+    const linkOculto = "aHR0cHM6Ly9ib3VxdWV0bm90ZS5jb20vZ2lmdC84NTZkY2UxYjBjYjA0N2Q0OGIyMWNhNWY=";
+
+    function actualizarReloj() {
+      const ahora = new Date().getTime();
+      const diferencia = fechaObjetivo - ahora;
+
+      if (diferencia <= 0) {
+        clearInterval(intervalo);
+        const urlReal = atob(linkOculto);
+
+        // Cambia la interfaz al modo cumpleaños
+        document.getElementById("icono-estado").innerText = "🎉💐❤️";
+        document.getElementById("titulo").innerText = "¡Feliz Cumpleaños, Yose!";
+        document.getElementById("mensaje").innerText = "La espera terminó. Toca el botón de abajo para abrir tu sorpresa (o espera unos segundos para ir automáticamente).";
+        document.getElementById("contenedor-reloj").style.display = "none";
+        document.getElementById("nota-inferior").style.display = "none";
+
+        const boton = document.getElementById("btn-sorpresa");
+        boton.href = urlReal;
+        boton.style.display = "inline-block";
+
+        // Redirige automáticamente tras 3.5 segundos para que alcance a leer el saludo
+        setTimeout(() => {
+          window.location.href = urlReal;
+        }, 3500);
+
+      } else {
+        const h = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        document.getElementById("horas").innerText = String(h).padStart(2, '0');
+        document.getElementById("minutos").innerText = String(m).padStart(2, '0');
+        document.getElementById("segundos").innerText = String(s).padStart(2, '0');
+      }
+    }
+
+    const intervalo = setInterval(actualizarReloj, 1000);
+    actualizarReloj();
+  </script>
+
+</body>
+</html>
